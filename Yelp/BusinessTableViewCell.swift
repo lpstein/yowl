@@ -9,6 +9,7 @@
 import UIKit
 
 class BusinessTableViewCell: UITableViewCell {
+  @IBOutlet weak var distanceLabel: UILabel!
   @IBOutlet weak var categoriesLabel: UILabel!
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var dollarsLabel: UILabel!
@@ -26,7 +27,7 @@ class BusinessTableViewCell: UITableViewCell {
       addressLabel.text = business.address
       dollarsLabel.text = "$$$"
       reviewLabel.text = "\(business.reviewCount!) reviews"
-    
+      distanceLabel.text = business.distance
     }
   }
   

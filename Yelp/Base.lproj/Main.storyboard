@@ -21,7 +21,7 @@
             </objects>
             <point key="canvasLocation" x="345.60000000000002" y="323.75999999999993"/>
         </scene>
-        <!--Businesses View Controller-->
+        <!--Search-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -135,6 +135,7 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="dg8-fQ-9jU" id="m61-rP-dIl"/>
                                             <outlet property="categoriesLabel" destination="q8i-cD-sTh" id="Q6b-54-h4s"/>
+                                            <outlet property="distanceLabel" destination="zOJ-Q0-DqA" id="wv3-Qg-JoT"/>
                                             <outlet property="dollarsLabel" destination="Jug-TX-1rj" id="BHF-M5-0cV"/>
                                             <outlet property="nameLabel" destination="43l-O2-xjB" id="LTx-DA-wo0"/>
                                             <outlet property="pictureView" destination="YdU-pO-KIn" id="tWT-9s-4V2"/>
@@ -157,7 +158,13 @@
                             <constraint firstAttribute="trailing" secondItem="NdT-gZ-dq9" secondAttribute="trailing" id="SZg-sO-VHR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ouX-UH-mOA"/>
+                    <navigationItem key="navigationItem" title="Search" id="ouX-UH-mOA">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="xL9-Qk-gaS">
+                            <connections>
+                                <segue destination="a4W-6R-Kbn" kind="push" id="EBF-1o-NWk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="NdT-gZ-dq9" id="uUJ-oq-Q4h"/>
                     </connections>
@@ -165,6 +172,129 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="729" y="322"/>
+        </scene>
+        <!--Filter-->
+        <scene sceneID="lRu-7w-y7W">
+            <objects>
+                <viewController id="a4W-6R-Kbn" customClass="FilterViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4HR-rh-xAF"/>
+                        <viewControllerLayoutGuide type="bottom" id="RcB-hg-uZ0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xUM-Az-DTW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sort by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utp-3Y-e9n">
+                                <rect key="frame" x="16" y="200" width="57" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAd-5Y-MKB">
+                                <rect key="frame" x="16" y="121" width="70" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ua-Tp-12E">
+                                <rect key="frame" x="16" y="278" width="86" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Offering a deal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCp-5u-5Mr">
+                                <rect key="frame" x="16" y="77" width="116" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Rgj-48-hyc">
+                                <rect key="frame" x="16" y="150" width="288" height="29"/>
+                                <segments>
+                                    <segment title="auto"/>
+                                    <segment title="0.3 mi"/>
+                                    <segment title="1 mi"/>
+                                    <segment title="3 mi"/>
+                                    <segment title="5 mi"/>
+                                </segments>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PSH-Mn-lKQ">
+                                <rect key="frame" x="16" y="229" width="288" height="29"/>
+                                <segments>
+                                    <segment title="Best Match"/>
+                                    <segment title="Distance"/>
+                                    <segment title="Rating"/>
+                                </segments>
+                            </segmentedControl>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eYY-63-O6n">
+                                <rect key="frame" x="255" y="72" width="51" height="31"/>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLg-7g-hco">
+                                <rect key="frame" x="253" y="307" width="51" height="31"/>
+                                <connections>
+                                    <action selector="categorySwitchChanged:" destination="a4W-6R-Kbn" eventType="valueChanged" id="boC-FF-E16"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Afghan" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOn-SJ-lr2">
+                                <rect key="frame" x="16" y="312" width="55" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-nl-FZg">
+                                <rect key="frame" x="253" y="346" width="51" height="31"/>
+                                <connections>
+                                    <action selector="categorySwitchChanged:" destination="a4W-6R-Kbn" eventType="valueChanged" id="wsw-JM-3sU"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New American" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8R-mq-sNG">
+                                <rect key="frame" x="16" y="351" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrV-eS-Pmd">
+                                <rect key="frame" x="253" y="385" width="51" height="31"/>
+                                <connections>
+                                    <action selector="categorySwitchChanged:" destination="a4W-6R-Kbn" eventType="valueChanged" id="p3I-Xu-kns"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Italian" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpf-Y6-RQk">
+                                <rect key="frame" x="16" y="390" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vqb-a2-BMQ">
+                                <rect key="frame" x="253" y="424" width="51" height="31"/>
+                                <connections>
+                                    <action selector="categorySwitchChanged:" destination="a4W-6R-Kbn" eventType="valueChanged" id="5Vj-qN-F4G"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mexican" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-ea-ucR">
+                                <rect key="frame" x="16" y="429" width="65" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Filter" id="AVa-pK-SU1"/>
+                    <connections>
+                        <outlet property="afghanSwitch" destination="qLg-7g-hco" id="Xnb-fR-fxX"/>
+                        <outlet property="dealSwitch" destination="eYY-63-O6n" id="GE8-LW-eZp"/>
+                        <outlet property="distanceChoice" destination="Rgj-48-hyc" id="nYq-36-JqP"/>
+                        <outlet property="italianSwitch" destination="YrV-eS-Pmd" id="OVR-P7-4T5"/>
+                        <outlet property="mexicanSwitch" destination="Vqb-a2-BMQ" id="ScQ-zg-N7h"/>
+                        <outlet property="newAmericanSwitch" destination="zvb-nl-FZg" id="ZJh-8n-euB"/>
+                        <outlet property="sortChoice" destination="PSH-Mn-lKQ" id="zd2-nx-XN5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xd7-iq-W9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1139" y="323"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
