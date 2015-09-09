@@ -8,45 +8,46 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController {
+class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+  @IBOutlet var tableView: UITableView!
+  var businesses: [Business] = []
+  let searchBar = UISearchBar()
 
-    var businesses: [Business]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-//        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-//            self.businesses = businesses
-//            
-//            for business in businesses {
-//                println(business.name!)
-//                println(business.address!)
-//            }
-//        })
-        
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            
-            for business in businesses {
-                println(business.name!)
-                println(business.address!)
-            }
-        }
+    navigationItem.titleView = searchBar
+    searchBar.delegate = self
+  }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+
+  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    Business.searchWithTerm(searchText, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+      self.businesses = businesses
+      
+      self.update()
+    })
+  }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return businesses.count
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("com.shazam.BusinessCell", forIndexPath: indexPath) as! BusinessTableViewCell
+    if indexPath.row < businesses.count {
+      cell.business = businesses[indexPath.row]
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    return cell
+  }
+  
+  private func update() {
+    if let tableView = tableView {
+      tableView.reloadData()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  }
 }
