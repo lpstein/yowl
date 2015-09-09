@@ -18,6 +18,10 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
 
     navigationItem.titleView = searchBar
     searchBar.delegate = self
+    
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 100
+    tableView.separatorInset = UIEdgeInsetsZero
   }
 
   override func didReceiveMemoryWarning() {
